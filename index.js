@@ -17,14 +17,19 @@ app.post("/user", async (req, res) => {
 });
 
 app.put("/user/:id", async (req, res) => {
-
   const id = req.params.id;
   const newAge = req.body.age;
-  const newUser = await prisma.user.update({
+  const updatedUser = await prisma.user.update({
     where: { id: parseInt(id) },
     data: { age: newAge },
   });
-  res.json({user :newUser });
+  res.json(updatedUser);
+});
+
+app.delete("/user/:id", async (req, res) => {
+  const id = req.params.id;
+  const deletedUser = await prisma.user.delete({ where: { id: parseInt(id) } })
+  res.json(deletedUser);
 });
 
 app.listen(3000, () => console.log("server runningg on port 3000"));
