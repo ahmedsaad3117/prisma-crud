@@ -12,8 +12,19 @@ app.get("/user", async (req, res) => {
 });
 
 app.post("/user", async (req, res) => {
-  const newUser = await prisma.user.create({data: req.body});
-  res.json(newUser)
+  const newUser = await prisma.user.create({ data: req.body });
+  res.json(newUser);
+});
+
+app.put("/user/:id", async (req, res) => {
+
+  const id = req.params.id;
+  const newAge = req.body.age;
+  const newUser = await prisma.user.update({
+    where: { id: parseInt(id) },
+    data: { age: newAge },
+  });
+  res.json({user :newUser });
 });
 
 app.listen(3000, () => console.log("server runningg on port 3000"));
