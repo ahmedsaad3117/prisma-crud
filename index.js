@@ -28,8 +28,23 @@ app.put("/user/:id", async (req, res) => {
 
 app.delete("/user/:id", async (req, res) => {
   const id = req.params.id;
-  const deletedUser = await prisma.user.delete({ where: { id: parseInt(id) } })
+  const deletedUser = await prisma.user.delete({ where: { id: parseInt(id) } });
   res.json(deletedUser);
+});
+
+app.post("/house", async (req, res) => {
+  const newHouse = await prisma.house.create(req.body);
+  res.json(newHouse);
+});
+
+app.get("/house", async (req, res) => {
+  const allHouse = await prisma.house.findMany({
+    include: {
+      owner: true,
+      builtBy: true,
+    },
+  });
+  res.json(allHouse);
 });
 
 app.listen(3000, () => console.log("server runningg on port 3000"));
