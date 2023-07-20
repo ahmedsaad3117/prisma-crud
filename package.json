@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
+    "create-migration": "npx prisma migrate dev --name init --create-only ",
     "migrate": "npx prisma migrate deploy "
   },
   "keywords": [],
